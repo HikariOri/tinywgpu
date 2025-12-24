@@ -1,5 +1,6 @@
 import * as core from "./core/index";
 import { ExampleScene } from "./core/scenes/ExampleScene";
+import { OrbitCameraController } from "./core/CameraController";
 
 async function main() {
     // 创建引擎
@@ -19,14 +20,20 @@ async function main() {
     const scene = new ExampleScene(device, { type: 'canvas', canvasId: 'main' });
     engine.sceneManager.addScene(scene);
     
-    // 启动渲染循环
-    engine.RenderLoop();
-    // function renderLoop() {
-    //     engine.RenderLoop();
-    //     requestAnimationFrame(renderLoop);
-    // }
+    // 创建相机控制器
+    if (scene.camera) {
+        const cameraController = new OrbitCameraController(scene.camera, canvas);
+        // 设置初始目标点（立方体的位置）
+        cameraController.setTarget(0, 0, -3);
+    }
     
-    // renderLoop();
+    // 启动渲染循环
+    function renderLoop() {
+        engine.RenderLoop();
+        requestAnimationFrame(renderLoop);
+    }
+    
+    renderLoop();
 }
 
 main().catch(console.error);

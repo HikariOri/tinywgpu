@@ -2,6 +2,7 @@ export * from "./Engine";
 export * from "./Scene";
 export * from "./SceneManager";
 export * from "./Camera";
+export * from "./CameraController";
 export * from "./Renderable";
 export * from "./Mesh";
 export * from "./CanvasManager";

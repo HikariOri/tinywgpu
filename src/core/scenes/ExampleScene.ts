@@ -9,8 +9,8 @@ import { GPUDevice } from "@webgpu/types";
  * 示例 Scene：包含一个正方体和一个 Camera
  */
 export class ExampleScene extends Scene {
-    private cube: Renderable | null = null;
-    private camera: PerspectiveCamera | null = null;
+    public cube: Renderable | null = null;
+    public camera: PerspectiveCamera | null = null;
 
     constructor(device: GPUDevice, target: RenderTarget) {
         super();
@@ -33,9 +33,10 @@ export class ExampleScene extends Scene {
     override update(deltaTime: number): void {
         // 预留：每帧更新场景
         // 例如可以让正方体旋转
-        if (this.cube) {
-            this.cube.addRotation(deltaTime * 0.5, deltaTime * 0.3, 0);
-        }
+        // 注意：如果使用相机控制器，可以注释掉自动旋转
+        // if (this.cube) {
+        //     this.cube.addRotation(deltaTime * 0.5, deltaTime * 0.3, 0);
+        // }
     }
 }
 

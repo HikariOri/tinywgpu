@@ -46,6 +46,19 @@ export class PerspectiveCamera implements ICamera {
         this._viewMatrixDirty = true
     }
 
+    /**
+     * 使用 lookAt 方法设置相机朝向
+     * @param eye 相机位置
+     * @param target 目标点
+     * @param up 上向量（默认 [0, 1, 0]）
+     */
+    lookAt(eye: [number, number, number], target: [number, number, number], up: [number, number, number] = [0, 1, 0]) {
+        this._position = eye
+        // 直接使用 lookAt 计算视图矩阵
+        mat4.lookAt(this._viewMatrix, eye, target, up)
+        this._viewMatrixDirty = false
+    }
+
     setProjection(fov: number, aspect: number, near: number, far: number) {
         this._fov = fov
         this._aspect = aspect

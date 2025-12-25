@@ -1,4 +1,5 @@
 import { Mesh } from "./types/Mesh"
+import { BufferManager } from "./BufferManager"
 
 /**
  * 工具类：创建常用几何体
@@ -7,7 +8,7 @@ export class MeshBuilder {
     /**
      * 创建正方体 Mesh
      */
-    static createCube(device: GPUDevice, size: number = 1.0): Mesh {
+    static createCube(bufferManager: BufferManager, size: number = 1.0): Mesh {
         const halfSize = size / 2
         
         // 正方体的 8 个顶点（位置 + 颜色）
@@ -40,23 +41,8 @@ export class MeshBuilder {
             0, 3, 7,  7, 4, 0,
         ])
 
-        const vertexBuffer = device.createBuffer({
-            label: 'Cube vertices',
-            size: vertices.byteLength,
-            usage: GPUBufferUsage.VERTEX,
-            mappedAtCreation: true,
-        })
-        new Float32Array(vertexBuffer.getMappedRange()).set(vertices)
-        vertexBuffer.unmap()
-
-        const indexBuffer = device.createBuffer({
-            label: 'Cube indices',
-            size: indices.byteLength,
-            usage: GPUBufferUsage.INDEX,
-            mappedAtCreation: true,
-        })
-        new Uint16Array(indexBuffer.getMappedRange()).set(indices)
-        indexBuffer.unmap()
+        const vertexBuffer = bufferManager.createVertexBuffer(vertices, 'Cube vertices');
+        const indexBuffer = bufferManager.createIndexBuffer(indices, 'Cube indices');
 
         return {
             vertexBuffer,

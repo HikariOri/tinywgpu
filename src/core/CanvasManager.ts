@@ -1,27 +1,28 @@
 import { CanvasContext } from "./CanvasContext";
 
 export class CanvasManager {
+    private device: GPUDevice;
     private contexts: Map<string, CanvasContext> = new Map();
     private defaultCanvasId: string | null = null;
     private resizeObserver: ResizeObserver | null = null;
     private windowResizeHandler: (() => void) | null = null;
 
     // 不再依赖Engine，只需要device
-    constructor() {
+    constructor(device: GPUDevice) {
+        this.device = device;
         this.setupResizeListener();
     }
 
     // 注册canvas时需要device
     registerCanvas(
         canvas: HTMLCanvasElement,
-        device: GPUDevice,
         id?: string
     ): CanvasContext {
         if (!id) {
             id = `canvas_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
         }
 
-        const context = new CanvasContext(canvas, device);
+        const context = new CanvasContext(canvas, this.device);
         this.contexts.set(id, context);
 
         if (!this.defaultCanvasId) {

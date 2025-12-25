@@ -1,4 +1,5 @@
-import { ICamera } from "./types/ICamera"
+import { IAsset } from "@/assets/asset_types/IAsset"
+import { ICamera } from "../core/types/ICamera"
 import { Scene } from "./Scene"
 
 export class SceneManager {
@@ -25,5 +26,11 @@ export class SceneManager {
             .flatMap(scene => scene.cameras)
             .filter(camera => camera.enabled)
             .sort((a, b) => a.order - b.order)
+    }
+
+    collectAssets(): Set<IAsset> {
+        let assets = new Set<IAsset>()
+        // TODO: 递归收集所有场景中的资产
+        return assets
     }
 }

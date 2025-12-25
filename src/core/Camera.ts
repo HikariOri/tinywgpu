@@ -1,6 +1,7 @@
 import { ICamera } from "./types/ICamera"
-import { Scene } from "./Scene"
+import { Scene } from "../scene/Scene"
 import { RenderTarget } from "./types/RenderTarget"
+import { IRenderer } from "./types/IRenderer"
 import { mat4 } from "gl-matrix"
 
 /**
@@ -10,6 +11,7 @@ import { mat4 } from "gl-matrix"
 export class PerspectiveCamera implements ICamera {
     readonly scene: Scene
     readonly target: RenderTarget
+    readonly renderer: IRenderer  // Camera 与 Renderer 一一对应
     enabled: boolean = true
     order: number = 0
 
@@ -29,9 +31,10 @@ export class PerspectiveCamera implements ICamera {
     private _viewMatrixDirty: boolean = true
     private _projectionMatrixDirty: boolean = true
 
-    constructor(scene: Scene, target: RenderTarget) {
+    constructor(scene: Scene, target: RenderTarget, renderer: IRenderer) {
         this.scene = scene
         this.target = target
+        this.renderer = renderer
         // Camera 需要被添加到 Scene 中
         ;(scene as any).addCamera(this)
     }

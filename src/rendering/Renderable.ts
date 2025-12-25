@@ -1,4 +1,4 @@
-import { Mesh } from "./types/Mesh"
+import { Mesh } from "../core/types/Mesh"
 import { mat4 } from "gl-matrix"
 
 /**

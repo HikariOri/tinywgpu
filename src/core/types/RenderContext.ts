@@ -1,5 +1,5 @@
 import { ICamera } from "./ICamera";
-import { Scene } from "../Scene";
+import { Scene } from "../../scene/Scene";
 
 /**
  * 渲染上下文，包含渲染所需的所有信息
